@@ -4,7 +4,8 @@ class Validator
 {
     public function validateEmail(string $email): bool 
     {
-        return false;
+        $pattern = '[a-zA-Z]+[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+        return preg_match($pattern, $email) === 1;
     }
 }
 
