@@ -4,8 +4,17 @@ class Validator
 {
     public function validateEmail(string $email): bool 
     {
-        $pattern = '/^[a-zA-Z]+[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-        return preg_match($pattern, $email) === 1;
+        $symbol = strpos($email, '@') !== false;
+        $format = preg_match('/^[a-zA-Z]+[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $email);
+
+        if ($symbol && $format) {
+            return true;
+        } else {
+            echo "Adres e-mail jest nieprawidłowy, musi zawierać: \n";
+            if (!$symbol) echo " - znak '@' \n";
+            if (!$format) echo " - poprawny format: [nazwa]@[domena].[rozszerzenie] \n";
+            return false;
+        }
     }
 
     public function validatePassword(string $password): bool 
@@ -20,12 +29,12 @@ class Validator
             return true;
         }
         else {
-            echo "Hasło musi zawierać \n";
-            if (!$length) echo "co najmniej 8 znaków \n";
-            if (!$uppercase) echo "co najmniej 1 dużą literę \n";
-            if (!$lowercase) echo "co najmniej 1 małą literę \n";
-            if (!$digit) echo "co najmniej 1 cyfrę \n";
-            if (!$special) echo "co najmniej 1 znak specjalny \n";
+            echo "Hasło jest nieprawidłowe, musi zawierać: \n";
+            if (!$length) echo " - co najmniej 8 znaków \n";
+            if (!$uppercase) echo " - co najmniej 1 dużą literę \n";
+            if (!$lowercase) echo " - co najmniej 1 małą literę \n";
+            if (!$digit) echo " - co najmniej 1 cyfrę \n";
+            if (!$special) echo " - co najmniej 1 znak specjalny \n";
             return false;
 
         }
@@ -35,19 +44,10 @@ class Validator
 //Example
 $validator = new Validator();
 
-$email = "email@example.com";
+$email = "example@email.m";
 $password = "Polska11!";
 
-if ($validator->validateEmail($email)) {
-    echo "Email jest prawidłowy \n";
-} else {
-    echo "Email jest nieprawidłowy \n";
-}
-
-if ($validator->validatePassword($password)) {
-    echo "Haslo jest prawidłowe \n";
-} else {
-    echo "Hasło jest nieprawidłowe \n";
-}
+$validator->validateEmail($email);
+$validator->validatePassword($password);
 
 ?>
