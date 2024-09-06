@@ -10,7 +10,13 @@ class Validator
 
     public function validatePassword(string $password): bool 
     {
-        return strlen($password) >= 8;
+        $length = strlen($password) >= 8;
+        $uppercase = preg_match('/[A-Z]/', $password);
+        $lowercase = preg_match('/[a-z]/', $password);
+        $digit = preg_match('/\d/', $password);
+        $special = preg_match('/[\W_]/, $password');
+        
+        return $length && $uppercase && $lowercase && $digit && $special;
     }
 }
 
