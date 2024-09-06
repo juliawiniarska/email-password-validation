@@ -32,4 +32,22 @@ class Validator
     }
 }
 
+//Example
+$validator = new Validator();
+
+$email = "email@example.com";
+$password = "Polska11!";
+
+if ($validator->validateEmail($email)) {
+    echo "Email jest prawidłowy \n";
+} else {
+    echo "Email jest nieprawidłowy \n";
+}
+
+if ($validator->validatePassword($password)) {
+    echo "Haslo jest prawidłowe \n";
+} else {
+    echo "Hasło jest nieprawidłowe \n";
+}
+
 ?>
