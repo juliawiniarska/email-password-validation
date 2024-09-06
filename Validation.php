@@ -15,8 +15,20 @@ class Validator
         $lowercase = preg_match('/[a-z]/', $password);
         $digit = preg_match('/\d/', $password);
         $special = preg_match('/[\W_]/, $password');
-        
-        return $length && $uppercase && $lowercase && $digit && $special;
+
+        if ($length && $uppercase && $lowercase && $digit && $special) {
+            return true;
+        }
+        else {
+            echo "Hasło musi zawierać \n";
+            if (!$length) echo "co najmniej 8 znaków \n";
+            if (!$uppercase) echo "co najmniej 1 dużą literę \n";
+            if (!$lowercase) echo "co najmniej 1 małą literę \n";
+            if (!$digit) echo "co najmniej 1 cyfrę \n";
+            if (!$special) echo "co najmniej 1 znak specjalny \n";
+            return false;
+
+        }
     }
 }
 
