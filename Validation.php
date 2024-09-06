@@ -4,15 +4,15 @@ class Validator
 {
     public function validateEmail(string $email): bool 
     {
-        $symbol = strpos($email, '@') !== false;
-        $format = preg_match('/^[a-zA-Z]+[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $email);
+        $pattern = '/^[a-zA-Z]+[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 
-        if ($symbol && $format) {
+        $format = (bool)preg_match($pattern, $email);
+
+        if ($format) {
             return true;
         } else {
-            echo "Adres e-mail jest nieprawidłowy, musi zawierać: \n";
-            if (!$symbol) echo " - znak '@' \n";
-            if (!$format) echo " - poprawny format: [nazwa]@[domena].[rozszerzenie] \n";
+            echo "Adres e-mail jest nieprawidłowy, musi mieć poprawny format: \n";
+            echo "[nazwa]@[domena].[rozszerzenie] \n";
             return false;
         }
     }
@@ -44,7 +44,7 @@ class Validator
 //Example
 $validator = new Validator();
 
-$email = "example@email.m";
+$email = "example@email.com";
 $password = "Polska11!";
 
 $validator->validateEmail($email);
